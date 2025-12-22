@@ -92,15 +92,22 @@
         #      - 使用 pkgs.pkgsCross."${crossSystem}" 作为 pkgsArg
         # ------------------------------------------------------------------------
         packages = (self.myPkgs (self.callPackage pkgs)) // {
-          pkgsCross =
-            (pkgs.writeText "pkgsCross" "")
-            // (
+          pkgsCross = pkgs.writeTextFile {
+            name = "pkgsCross";
+            text = "";
+            passthru = (
               lib.map (crossSystem: {
                 name = crossSystem;
                 value = self.myPkgs (self.callPackage pkgs.pkgsCross."${crossSystem}");
               }) (lib.attrNames lib.systems.examples)
               |> lib.listToAttrs
             );
+          };
+          pkgsStatic = pkgs.writeTextFile {
+            name = "pkgsStatic";
+            text = "";
+            passthru = (pkgs.writeText "pkgsStatic" "") // (self.myPkgs (self.callPackage pkgs.pkgsStatic));
+          };
         };
       };
     in
