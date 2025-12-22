@@ -1,0 +1,121 @@
+{
+  "nodes": {
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1765121682,
+        "narHash": "sha256-4VBOP18BFeiPkyhy9o4ssBNQEvfvv1kXkasAYd0+rrA=",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/flake-compat/archive/65f2313.zip"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/NixOS/flake-compat/archive/65f2313.zip"
+      }
+    },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1763759067,
+        "narHash": "sha256-LlLt2Jo/gMNYAwOgdRQBrsRoOz7BPRkzvNaI/fzXi2Q=",
+        "type": "tarball",
+        "url": "https://github.com/hercules-ci/flake-parts/archive/2cccadc.zip"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/hercules-ci/flake-parts/archive/2cccadc.zip"
+      }
+    },
+    "infuse": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1738726976,
+        "narHash": "sha256-N+u3vnK3zyXLUuDj/vr62r9tM7uarhKVCaLHWxjo/YY=",
+        "ref": "refs/heads/trunk",
+        "rev": "c8fb7397039215e1444c835e36a0da7dc3c743f8",
+        "revCount": 48,
+        "type": "git",
+        "url": "https://codeberg.org/amjoseph/infuse.nix.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/amjoseph/infuse.nix.git"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1764983851,
+        "narHash": "sha256-y7RPKl/jJ/KAP/VKLMghMgXTlvNIJMHKskl8/Uuar7o=",
+        "ref": "nixos-25.11",
+        "rev": "d9bc5c7dceb30d8d6fafa10aeb6aa8a48c218454",
+        "shallow": true,
+        "type": "git",
+        "url": "https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git"
+      },
+      "original": {
+        "ref": "nixos-25.11",
+        "shallow": true,
+        "type": "git",
+        "url": "https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git"
+      }
+    },
+    "process-compose-flake": {
+      "locked": {
+        "lastModified": 1764915241,
+        "narHash": "sha256-vTqn6IAkZhuuctvkxjhzI1EEybyzwaNd7HJvhF662O8=",
+        "type": "tarball",
+        "url": "https://github.com/Platonic-Systems/process-compose-flake/archive/3667881.zip"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/Platonic-Systems/process-compose-flake/archive/3667881.zip"
+      }
+    },
+    "root": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "flake-parts": "flake-parts",
+        "infuse": "infuse",
+        "nixpkgs": "nixpkgs",
+        "process-compose-flake": "process-compose-flake",
+        "services-flake": "services-flake",
+        "treefmt-nix": "treefmt-nix"
+      }
+    },
+    "services-flake": {
+      "locked": {
+        "lastModified": 1765168239,
+        "narHash": "sha256-NZ7H4lbbytPNwe4ZyvovycuS1BMBFwJrptgX7NiF+F0=",
+        "type": "tarball",
+        "url": "https://github.com/juspay/services-flake/archive/8b6244f.zip"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/juspay/services-flake/archive/8b6244f.zip"
+      }
+    },
+    "treefmt-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1762938485,
+        "narHash": "sha256-AlEObg0syDl+Spi4LsZIBrjw+snSVU4T8MOeuZJUJjM=",
+        "type": "tarball",
+        "url": "https://github.com/numtide/treefmt-nix/archive/5b4ee75.zip"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/numtide/treefmt-nix/archive/5b4ee75.zip"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
