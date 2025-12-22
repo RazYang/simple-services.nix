@@ -8,9 +8,8 @@
   systems = [
     "aarch64-linux"
     "x86_64-linux"
+    "aarch64-darwin"
   ];
-
-  _module.args.infuse = (import inputs.infuse { inherit lib; }).v1.infuse;
 
   perSystem =
     { system, pkgs, ... }:

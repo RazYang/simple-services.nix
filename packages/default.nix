@@ -2,7 +2,6 @@
   lib,
   config,
   inputs,
-  infuse,
   ...
 }:
 {
@@ -24,7 +23,7 @@
         #   合并多个作用域，使得包定义可以访问：
         #   - pkgsArg: 基础包集合
         #   - self.packages: 当前已构建的所有包（形成循环依赖）
-        #   - inputs, infuse 等: 其他透传参数
+        #   - inputs
         # ------------------------------------------------------------------------
         callPackage =
           pkgsArg:
@@ -35,7 +34,7 @@
               # lib.fix 会延迟求值，直到 packages 被完全构建
               self.packages
               {
-                inherit inputs infuse;
+                inherit inputs;
                 inherit (config.allModuleArgs) self' inputs' system;
               }
             ]

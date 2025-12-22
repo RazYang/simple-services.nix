@@ -30,22 +30,6 @@
         "url": "https://github.com/hercules-ci/flake-parts/archive/2cccadc.zip"
       }
     },
-    "infuse": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1738726976,
-        "narHash": "sha256-N+u3vnK3zyXLUuDj/vr62r9tM7uarhKVCaLHWxjo/YY=",
-        "ref": "refs/heads/trunk",
-        "rev": "c8fb7397039215e1444c835e36a0da7dc3c743f8",
-        "revCount": 48,
-        "type": "git",
-        "url": "https://codeberg.org/amjoseph/infuse.nix.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://codeberg.org/amjoseph/infuse.nix.git"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1764983851,
@@ -63,39 +47,12 @@
         "url": "https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git"
       }
     },
-    "process-compose-flake": {
-      "locked": {
-        "lastModified": 1764915241,
-        "narHash": "sha256-vTqn6IAkZhuuctvkxjhzI1EEybyzwaNd7HJvhF662O8=",
-        "type": "tarball",
-        "url": "https://github.com/Platonic-Systems/process-compose-flake/archive/3667881.zip"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/Platonic-Systems/process-compose-flake/archive/3667881.zip"
-      }
-    },
     "root": {
       "inputs": {
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
-        "infuse": "infuse",
         "nixpkgs": "nixpkgs",
-        "process-compose-flake": "process-compose-flake",
-        "services-flake": "services-flake",
         "treefmt-nix": "treefmt-nix"
-      }
-    },
-    "services-flake": {
-      "locked": {
-        "lastModified": 1765168239,
-        "narHash": "sha256-NZ7H4lbbytPNwe4ZyvovycuS1BMBFwJrptgX7NiF+F0=",
-        "type": "tarball",
-        "url": "https://github.com/juspay/services-flake/archive/8b6244f.zip"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/juspay/services-flake/archive/8b6244f.zip"
       }
     },
     "treefmt-nix": {
