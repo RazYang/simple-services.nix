@@ -1,5 +1,5 @@
 { stdenv, fetchurl, ... }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "hello";
   version = "custom-2.12.1";
   src = fetchurl {

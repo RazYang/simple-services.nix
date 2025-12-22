@@ -1,5 +1,5 @@
-{ pkgs, self', ... }:
-pkgs.buildGoModule (finalAttr: {
+{ buildGoModule, fetchFromGitHub, ... }:
+buildGoModule (finalAttr: {
   pname = "supervisord";
   version = "0.7.3";
   vendorHash = "sha256-/95gbQEukalpjD+VQbC7elwfga4K2wqfCk7eRx7jhdU=";
@@ -8,7 +8,7 @@ pkgs.buildGoModule (finalAttr: {
     "-w"
   ];
   subPackages = [ "." ];
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "ochinchina";
     repo = "supervisord";
     rev = "v${finalAttr.version}";
