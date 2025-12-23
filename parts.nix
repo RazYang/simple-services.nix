@@ -1,4 +1,3 @@
-{ lib, inputs, ... }:
 {
   imports = [
     ./treefmt.nix
