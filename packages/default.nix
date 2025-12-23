@@ -85,21 +85,13 @@
       #      - 使用 pkgs.pkgsStatic 作为 pkgsArg
       #      - 构建静态包集合
       # ------------------------------------------------------------------------
-      pkgsCross = lib.mergeAttrsList [
-        (pkgs.writers.writeText "pkgsCross" "")
-        (lib.mapAttrs (n: _: self.pkgsFun (pkgs.pkgsCross."${n}")) lib.systems.examples)
-      ];
+      pkgsCross = lib.mergeAttrs (pkgs.writers.writeText "pkgsCross" "") (
+        lib.mapAttrs (n: _: self.pkgsFun (pkgs.pkgsCross."${n}")) lib.systems.examples
+      );
 
-      pkgsStatic = lib.mergeAttrsList [
-        (pkgs.writers.writeText "pkgsStatic" "")
-        (self.pkgsFun pkgs.pkgsStatic)
-      ];
+      pkgsStatic = lib.mergeAttrs (pkgs.writers.writeText "pkgsStatic" "") (self.pkgsFun pkgs.pkgsStatic);
 
-      packages = lib.mergeAttrsList [
-        (self.pkgsFun pkgs)
-        { inherit (self) pkgsCross; }
-        { inherit (self) pkgsStatic; }
-      ];
+      packages = lib.mergeAttrs (self.pkgsFun pkgs) { inherit (self) pkgsCross pkgsStatic; };
     })
     # ============================================================================
     # 使用 lib.fix 解决循环依赖问题，会延迟求值，直到所有递归引用都被解析
