@@ -16,7 +16,9 @@
     flake-parts.url = "https://github.com/hercules-ci/flake-parts/archive/2cccadc.zip";
     treefmt-nix.url = "https://github.com/numtide/treefmt-nix/archive/5b4ee75.zip";
     flake-compat.url = "https://github.com/NixOS/flake-compat/archive/65f2313.zip";
+    infuse.url = "git+https://codeberg.org/amjoseph/infuse.nix.git";
 
+    infuse.flake = false;
     flake-compat.flake = false;
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";

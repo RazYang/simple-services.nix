@@ -1,15 +1,15 @@
 {
-  hello-custom,
   writeTextFile,
   writeShellApplication,
   process-compose,
+  redis,
+  hello_2_11,
   s6-portable-utils,
   dockerTools,
   runCommand,
   closureInfo,
   bash,
   lib,
-  self',
   ...
 }:
 let
@@ -17,12 +17,8 @@ let
     name = "process-compose.json";
     text = builtins.toJSON {
       processes = {
-        sleep = {
-          command = "${s6-portable-utils}/bin/s6-sleep 100";
-        };
-        hello = {
-          command = "while true; do ${hello-custom}/bin/hello; ${s6-portable-utils}/bin/s6-sleep 1; done";
-        };
+        hello.command = "while true; do ${hello_2_11}/bin/hello; ${s6-portable-utils}/bin/s6-sleep 1; done";
+        redis.command = "${redis}/bin/redis-server --port 5552";
       };
     };
   };

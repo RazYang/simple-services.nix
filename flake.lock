@@ -30,6 +30,22 @@
         "url": "https://github.com/hercules-ci/flake-parts/archive/2cccadc.zip"
       }
     },
+    "infuse": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1738726976,
+        "narHash": "sha256-N+u3vnK3zyXLUuDj/vr62r9tM7uarhKVCaLHWxjo/YY=",
+        "ref": "refs/heads/trunk",
+        "rev": "c8fb7397039215e1444c835e36a0da7dc3c743f8",
+        "revCount": 48,
+        "type": "git",
+        "url": "https://codeberg.org/amjoseph/infuse.nix.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/amjoseph/infuse.nix.git"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1764983851,
@@ -51,6 +67,7 @@
       "inputs": {
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
+        "infuse": "infuse",
         "nixpkgs": "nixpkgs",
         "treefmt-nix": "treefmt-nix"
       }
