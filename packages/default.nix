@@ -85,23 +85,15 @@
       #      - 使用 pkgs.pkgsStatic 作为 pkgsArg
       #      - 构建静态包集合
       # ------------------------------------------------------------------------
-      pkgsCross = pkgs.writeTextFile {
-        name = "pkgsCross";
-        text = "";
-        passthru = (
-          lib.map (crossSystem: {
-            name = crossSystem;
-            value = self.pkgsFun (pkgs.pkgsCross."${crossSystem}");
-          }) (lib.attrNames lib.systems.examples)
-          |> lib.listToAttrs
-        );
-      };
+      pkgsCross = lib.mergeAttrsList [
+        (pkgs.writers.writeText "pkgsCross" "")
+        (lib.mapAttrs (n: _: self.pkgsFun (pkgs.pkgsCross."${n}")) lib.systems.examples)
+      ];
 
-      pkgsStatic = pkgs.writeTextFile {
-        name = "pkgsStatic";
-        text = "";
-        passthru = (pkgs.writeText "pkgsStatic" "") // (self.pkgsFun pkgs.pkgsStatic);
-      };
+      pkgsStatic = lib.mergeAttrsList [
+        (pkgs.writers.writeText "pkgsStatic" "")
+        (self.pkgsFun pkgs.pkgsStatic)
+      ];
 
       packages = lib.mergeAttrsList [
         (self.pkgsFun pkgs)
