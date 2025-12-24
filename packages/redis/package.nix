@@ -1,6 +1,5 @@
 # 这是一个拥有独立作用域的，使用callPackage设计模式的软件包定义函数，与nixpkgs中软件包的定义方式基本相同：
 # https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/by-name/he/hello/package.nix
-
 { infuse, pkgs, ... }:
 #   - infuse: 来自 overlays/default.nix，通过 overlay 机制被添加到 pkgs 中
 #   - pkgs: pkgs本体，因为这个包也叫redis，使用pkgs.redis避免循环引用
