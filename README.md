@@ -1,6 +1,39 @@
 # simple-services.nix
 
-一个使用 flake-parts 组织的 Nix flake 项目，演示如何使用有限作用域进行包覆盖操作，避免影响整个 nixpkgs。
+一个使用 flake-parts 组织的 Nix flake 项目，演示如何使用nix进行简单的服务封装，项目遵循以下原则：
+1. 有限作用域进行包声明/覆盖，尽量避免影响整个 nixpkgs。
+2. 使用包的组合，加上[process-compose](https://github.com/F1bonacc1/process-compose)以实现简单易懂的包声明。
+3. KISS原则，尽量保证每个部分相对简单，容易修改和扩展。
+
+nix生态内已经包含了太多概念：
+* [derivation](https://nix.dev/manual/nix/2.25/language/derivations)
+* [callPackage](https://nixos.org/guides/nix-pills/13-callpackage-design-pattern.html)
+* [evalModule](https://nix.dev/tutorials/module-system/a-basic-module/index.html)
+* [override](https://nixos.org/guides/nix-pills/17-nixpkgs-overriding-packages.html)
+* [fixPoint](https://akavel.github.io/post/nix-fixpoint/)
+* [flake](https://wiki.nixos.org/wiki/Flakes)
+* [nix bundler](https://nix.dev/manual/nix/2.24/command-ref/new-cli/nix3-bundle)
+
+而且概念还在持续增加：
+* [dynamic derivation](https://github.com/NixOS/rfcs/blob/master/rfcs/0092-plan-dynamism.md)
+* [content address derivation](https://github.com/NixOS/rfcs/blob/master/rfcs/0062-content-addressed-paths.md)
+* ...
+
+更不要说在这些概念之上的各种项目：
+* [uv2nix](https://github.com/pyproject-nix/uv2nix)
+* [crane](https://github.com/ipetkov/crane)
+* [home-manager](https://github.com/nix-community/home-manager)
+* [nixos](https://nixos.org/manual/nixos/stable/)
+* [nix-darwin](https://nix-darwin.github.io/nix-darwin/manual/)
+* [devenv](https://devenv.sh/)
+* [devbox](https://www.jetify.com/devbox)
+
+
+本项目希望通过大致兼容nixpkgs中包声明写法的前提下，减少设计模式的使用和暴露，让更多的人快速将nix带到自己的开发流程中。
+
+
+如果你不知道怎么去构建特定的包，_**JUST COPY FROM NIXPKGS**_
+
 
 ## 项目结构
 
@@ -158,13 +191,14 @@ nix fmt
 
 ✅ **建议**：优先使用 `packages/` 下面的有限作用域进行包覆盖操作。
 
-### 参数来源
+### callPackage的额外参数
 
 在 `packages/*/package.nix` 中：
-
 - `infuse`: 来自 `overlays/default.nix`，通过 overlay 机制被添加到 `pkgs` 中
 - `pkgs`: pkgs 本体，当包名与 nixpkgs 中的包名相同时，使用 `pkgs.packageName` 避免循环引用
-- 其他参数：通过 `callPackage` 的作用域合并机制自动注入
+- `inputs`: flake inputs，使用方式为inputs'.inputA.packages.${system}.PackageA
+- `inputs'`: flake inputs with system，简化写法，使用方式为inputs'.inputA.packages.PackageA
+- 其他参数：通过 `callPackage` 的作用域合并机制自动注入，包含pkgs以及当前作用域下的所有包
 
 ## 参考资源
 
