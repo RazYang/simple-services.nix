@@ -1,3 +1,4 @@
+# 这是一个 flakeModule，经由 mkFlake -> evalFlakeModule -> evalModules 链路被执行
 {
   imports = [
     ./treefmt.nix

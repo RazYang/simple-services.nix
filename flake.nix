@@ -1,3 +1,9 @@
+/*
+  这个文件是flake的入口文件，用于定义flake的输入和输出。
+  由于rfc193以及rfc194两个提案，这里倾向于将flake.nix当作go.mod，flake.lock当作go.sum。而parts.nix为flake outputs的入口点：
+  https://github.com/NixOS/rfcs/pull/193
+  https://github.com/NixOS/rfcs/pull/194
+*/
 {
   outputs =
     inputs: (inputs.flake-parts.lib.evalFlakeModule { inherit inputs; } ./parts.nix).config.flake;
