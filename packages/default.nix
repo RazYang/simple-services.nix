@@ -6,7 +6,8 @@
     # ============================================================================
     # 自指的艺术
     # ============================================================================
-    (self: {
+    # 使用 lib.fix 解决循环依赖问题，会延迟求值，直到所有递归引用都被解析
+    lib.fix (self: {
       # ------------------------------------------------------------------------
       # callPackageWithPkgs: 创建有独立作用域的callPackage
       # ------------------------------------------------------------------------
@@ -18,21 +19,16 @@
       #   创建一个有独立作用域的callPackage，使得包定义可以访问：
       #   - pkgsArg: 基础包集合
       #   - self.packages: 当前已构建的所有包（形成循环依赖）
+      #                    但lib.fix 会延迟求值，直到 packages 被完全构建
       #   - inputs: 输入的 flakes
       # ------------------------------------------------------------------------
       callPackageWrapper =
         pkgsArg:
         lib.callPackageWith (
-          lib.mergeAttrsList [
-            pkgsArg
-            # 注意：这里引用了 self.packages，形成循环依赖
-            # lib.fix 会延迟求值，直到 packages 被完全构建
-            self.packages
-            {
-              inherit inputs;
-              inherit (config.allModuleArgs) self' inputs' system;
-            }
-          ]
+          self.packages
+          |> lib.mergeAttrs pkgsArg
+          |> lib.mergeAttrs { inherit inputs; }
+          |> lib.mergeAttrs { inherit (config.allModuleArgs) self' inputs' system; }
         );
 
       # ------------------------------------------------------------------------
@@ -52,10 +48,11 @@
       # ------------------------------------------------------------------------
       pkgsFun =
         pkgsArg:
-        lib.fileset.fileFilter ({ name, ... }: name == "package.nix") ./.
+        ./.
+        |> lib.fileset.fileFilter (args: args.name == "package.nix")
         |> lib.fileset.toList
         |> lib.map (path: {
-          name = builtins.dirOf path |> builtins.baseNameOf;
+          name = path |> builtins.dirOf |> builtins.baseNameOf;
           value = (self.callPackageWrapper pkgsArg) (import path) { };
         })
         |> lib.listToAttrs;
@@ -87,7 +84,7 @@
       #      - 构建静态包集合
       # ------------------------------------------------------------------------
       pkgsCross = lib.mergeAttrs (pkgs.writers.writeText "pkgsCross" "") (
-        lib.mapAttrs (n: _: self.pkgsFun (pkgs.pkgsCross."${n}")) lib.systems.examples
+        lib.systems.examples |> lib.mapAttrs (n: _: self.pkgsFun (pkgs.pkgsCross."${n}"))
       );
 
       pkgsStatic = lib.mergeAttrs (pkgs.writers.writeText "pkgsStatic" "") (self.pkgsFun pkgs.pkgsStatic);
@@ -95,11 +92,7 @@
       packages = lib.mergeAttrs (self.pkgsFun pkgs) { inherit (self) pkgsCross pkgsStatic; };
     })
     # ============================================================================
-    # 使用 lib.fix 解决循环依赖问题，会延迟求值，直到所有递归引用都被解析
-    # ============================================================================
-    |> lib.fix
-    # ============================================================================
-    # 过滤掉 packages 以外的属性
+    # 只保留 packages 属性，最终返回 {packages = ...;}
     # ============================================================================
     |> lib.filterAttrs (n: _: n == "packages");
 }

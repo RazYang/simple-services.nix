@@ -10,7 +10,7 @@
   dockerTools,
   runCommand,
   closureInfo,
-  bash,
+  bashNonInteractive,
   lib,
   ...
 }:
@@ -34,35 +34,36 @@ let
   };
 
   # ============================================================================
-  # finalDrv: 最终的软件包
+  # processComposeWrapper: 最终的软件包
   # ============================================================================
-  finalDrv = writeShellApplication {
+  processComposeWrapper = writeShellApplication {
     name = svcName;
     # 启动脚本，使用process-compose加载svcConf，启动所有服务
     text = ''exec ${process-compose}/bin/process-compose "$@"'';
+    # 运行时依赖
+    runtimeInputs = [ bashNonInteractive ];
     # 环境变量设置
     runtimeEnv = {
       PC_SOCKET_PATH = "/tmp/${APPID}.sock";
       PC_CONFIG_FILES = svcConf;
       PC_LOG_FILE = "/tmp/${APPID}.log";
     };
+  };
 
-    # 透传一些属性，方便构建服务的闭包/镜像/或其他格式
-    passthru = {
-      # 将所有依赖打包成tar.gz，其中只包含/nix/路径
-      tarball = runCommand "${svcName}.tar.gz" { closure = closureInfo { rootPaths = [ finalDrv ]; }; } ''
-        tar czf - $(cat $closure/store-paths) > $out
-      '';
-      # OCI镜像，其中只包含bash以及对应服务的启动命令
-      ociImage = dockerTools.buildImage {
-        name = svcName;
-        tag = "latest";
-        copyToRoot = [
-          bash
-          finalDrv
-        ];
-      };
+  # ============================================================================
+  # bundlers: 打包器，这种写法可以支持交叉编译
+  # ============================================================================
+  bundlers = drv: {
+    # 将所有依赖打包成tar.gz，其中只包含/nix/路径
+    tarball = runCommand "${drv.name}.tar.gz" { closure = closureInfo { rootPaths = [ drv ]; }; } ''
+      tar czf - $(cat $closure/store-paths) > $out
+    '';
+    # OCI镜像，其中只包含服务的启动命令
+    ociImage = dockerTools.buildImage {
+      name = drv.name;
+      tag = "latest";
+      copyToRoot = [ drv ];
     };
   };
 in
-finalDrv
+processComposeWrapper // bundlers processComposeWrapper
