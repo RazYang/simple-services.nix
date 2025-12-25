@@ -22,7 +22,7 @@
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } ./parts.nix;
 
   # ============================================================================
-  # Flake 输入依赖
+  # Flake inputs: 声明项目的外部依赖
   # ============================================================================
   inputs = {
     nixpkgs.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git?ref=nixos-25.11&shallow=1";
@@ -47,9 +47,9 @@
     extra-substituters = [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" ];
     # 启用的实验性功能
     experimental-features = [
-      "flakes" # Flake 功能
-      "nix-command" # 新的 nix 命令
-      "pipe-operators" # 管道操作符
+      "flakes" # 无奈，flake还是实验性功能
+      "nix-command" # 无奈++，nix-command也还是实验性功能
+      "pipe-operators" # 使用'|>'代替'lib.pipe'，提升代码可读性
     ];
   };
 }
