@@ -8,18 +8,18 @@
         inherit system;
         # 允许安装非自由软件包
         config.allowUnfree = true;
-        # 导入所有子目录下的 overlay.nix 文件作为 overlay
-        # 额外添加 infuse 作为 override 和 overrideAttrs 的语法糖
-        #
-        # 注意事项：使用 overlay 会影响整个 nixpkgs，可能导致大量包重复构建
-        # 建议：优先使用 packages 下面的有限作用域进行包覆盖操作
+        # 注意事项：
+        #   - 使用 overlay 会影响整个 nixpkgs，可能导致大量软件包被重新构建
+        #   - 建议优先使用 packages 下面的有限作用域进行包覆盖操作
         overlays =
-          (
-            lib.fileset.fileFilter ({ name, ... }: name == "overlay.nix") ./.
-            |> lib.fileset.toList
-            |> lib.map (path: import path)
-          )
-          ++ [ (final: _: { inherit ((import inputs.infuse { inherit (final) lib; }).v1) infuse; }) ];
+          # 递归读取子目录下的 overlay.nix 文件
+          lib.fileset.fileFilter (args: args.name == "overlay.nix") ./.
+          # 转换为列表
+          |> lib.fileset.toList
+          # 导入每个 overlay.nix 文件
+          |> lib.map (path: import path)
+          # 添加 inputs 到 pkgs 中
+          |> lib.concat [ (_: _: { inherit inputs; }) ];
       };
     };
 }
