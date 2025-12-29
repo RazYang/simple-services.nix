@@ -1,4 +1,5 @@
 # 这是一个 flakeModule，经由 mkFlake -> evalFlakeModule -> evalModules 链路被执行
+{ lib, ... }:
 {
   imports = [
     ./treefmt.nix
@@ -11,8 +12,8 @@
     "x86_64-linux"
     "aarch64-darwin"
   ];
-  flake.defaultTemplate = {
-    path = ./.;
+  flake.defaultTemplate = with builtins; {
+    path = filterSource (p: t: !(t == "directory" && (p |> dirOf |> baseNameOf) == "packages")) ./.;
     description = "";
   };
 }
