@@ -28,9 +28,9 @@
     nixpkgs.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git?ref=nixos-25.11&shallow=1";
 
     # flake-parts是好文明
-    flake-parts.url = "https://github.com/hercules-ci/flake-parts/archive/2cccadc.zip";
+    flake-parts.url = "https://github.com/hercules-ci/flake-parts/archive/refs/heads/main.zip";
     # 代码格式化工具，当然，去掉也没啥影响
-    treefmt-nix.url = "https://github.com/numtide/treefmt-nix/archive/5b4ee75.zip";
+    treefmt-nix.url = "https://github.com/numtide/treefmt-nix/archive/refs/heads/main.zip";
     # infuse是好文明
     infuse.url = "git+https://codeberg.org/amjoseph/infuse.nix.git";
 
