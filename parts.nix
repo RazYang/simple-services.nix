@@ -12,6 +12,7 @@
     "x86_64-linux"
     "aarch64-darwin"
   ];
+
   flake.defaultTemplate = with builtins; {
     path = filterSource (p: t: !(t == "directory" && (p |> dirOf |> baseNameOf) == "packages")) ./.;
     description = "";
