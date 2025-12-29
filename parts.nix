@@ -14,7 +14,13 @@
   ];
 
   flake.defaultTemplate = with builtins; {
-    path = filterSource (p: t: !(t == "directory" && (p |> dirOf |> baseNameOf) == "packages")) ./.;
+    path = filterSource (
+      p: t:
+      !(
+        t == "directory" && (p |> dirOf |> baseNameOf) == "packages"
+        || match "(.*\.md)|(/.*/package.nix)" p != null
+      )
+    ) ./.;
     description = "";
   };
 }

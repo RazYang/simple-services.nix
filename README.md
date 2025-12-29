@@ -44,16 +44,25 @@ nix 生态内已经包含了太多概念：
 
 ```
 .
-├── flake.nix          # Flake 入口文件，定义输入和输出
-├── parts.nix          # Flake outputs 的入口点（遵循 RFC 193/194）
-├── treefmt.nix        # Treefmt 格式化工具配置
-├── overlays/          # Overlay 定义目录
-│   └── default.nix   # 默认 overlay，添加 infuse 到 pkgs
-└── packages/          # 包定义目录
-    ├── default.nix   # 包扫描和构建逻辑
-    ├── redis/        # Redis 包定制示例
-    ├── hello_2_11/   # Hello 2.11 包定义示例
-    └── svc-hello/    # 服务组合示例（使用 process-compose）
+├── flake.nix            # Flake 入口文件，定义输入和输出
+├── parts.nix            # Flake outputs 的入口点（遵循 RFC 193/194）
+├── treefmt.nix          # Treefmt 格式化工具配置
+├── overlays/
+│   │── default.nix      # overlays入口文件
+│   └── 子目录           # 自动导入
+│       └── overlay.nix  # 自动导入
+└── packages/
+    ├── default.nix      # packages入口文件
+    └── 子目录           # 自动导入
+        └── package.nix  # 自动导入
+```
+### 快速开始
+``` bash
+$ nix flake new -t github:RazYang/simple-services.nix ./myflake
+$ cd myflake
+# 接下来，mkdir packages/your-package
+#         touch packages/your-package/package.nix
+#         编写你自己的包
 ```
 
 ## 核心特性
