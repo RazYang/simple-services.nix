@@ -10,11 +10,11 @@
         "lastModified": 1765835352,
         "narHash": "sha256-XswHlK/Qtjasvhd1nOa1e8MgZ8GS//jBoTqWtrS1Giw=",
         "type": "tarball",
-        "url": "https://github.com/hercules-ci/flake-parts/archive/refs/heads/main.zip"
+        "url": "https://github.com/hercules-ci/flake-parts/archive/a34fae9.zip"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/hercules-ci/flake-parts/archive/refs/heads/main.zip"
+        "url": "https://github.com/hercules-ci/flake-parts/archive/a34fae9.zip"
       }
     },
     "infuse": {
@@ -35,10 +35,10 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1764983851,
-        "narHash": "sha256-y7RPKl/jJ/KAP/VKLMghMgXTlvNIJMHKskl8/Uuar7o=",
+        "lastModified": 1767047869,
+        "narHash": "sha256-tzYsEzXEVa7op1LTnrLSiPGrcCY6948iD0EcNLWcmzo=",
         "ref": "nixos-25.11",
-        "rev": "d9bc5c7dceb30d8d6fafa10aeb6aa8a48c218454",
+        "rev": "89dbf01df72eb5ebe3b24a86334b12c27d68016a",
         "shallow": true,
         "type": "git",
         "url": "https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git"
@@ -65,14 +65,14 @@
         ]
       },
       "locked": {
-        "lastModified": 1766000401,
-        "narHash": "sha256-+cqN4PJz9y0JQXfAK5J1drd0U05D5fcAGhzhfVrDlsI=",
+        "lastModified": 1767122417,
+        "narHash": "sha256-yOt/FTB7oSEKQH9EZMFMeuldK1HGpQs2eAzdS9hNS/o=",
         "type": "tarball",
-        "url": "https://github.com/numtide/treefmt-nix/archive/refs/heads/main.zip"
+        "url": "https://github.com/numtide/treefmt-nix/archive/dec15f3.zip"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/numtide/treefmt-nix/archive/refs/heads/main.zip"
+        "url": "https://github.com/numtide/treefmt-nix/archive/dec15f3.zip"
       }
     }
   },
